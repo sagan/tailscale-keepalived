@@ -1,0 +1,19 @@
+# systemd service
+# put binary to: /usr/bin/tailscale-keepalived
+# put this file to: /etc/systemd/system/tailscale-keepalived.service
+# then run:
+#   systemctl daemon-reload && systemctl enable --now tailscale-keepalived
+
+[Unit]
+Description=Tailscale Keepalive Daemon
+After=network.target tailscaled.service
+
+[Service]
+ExecStart=/usr/bin/tailscale-keepalived
+Restart=always
+User=root
+# Adjust Environment if tailscale is not in standard path
+# Environment="PATH=/usr/bin:/usr/local/bin"
+
+[Install]
+WantedBy=multi-user.target
